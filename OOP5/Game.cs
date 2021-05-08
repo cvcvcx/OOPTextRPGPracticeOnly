@@ -26,10 +26,13 @@ namespace OOP5
             switch (mode)
             {
                 case GameMode.Lobby:
+                    ProcessLobby();
                     break;
                 case GameMode.Town:
+                    ProcessTown();
                     break;
                 case GameMode.Field:
+                    ProcessField();
                     break;
             }
         }
@@ -43,10 +46,33 @@ namespace OOP5
             switch (input)
             {
                 case "1":
-
+                    player = new Knight();
+                    mode = GameMode.Town;
+                    break;
+                case "2":
+                    player = new Archer();
+                    mode = GameMode.Town; ;
+                    break;
+                case "3":
+                    player = new Barbarian();
+                    mode = GameMode.Town;
                     break;
             }
         }
+        private void ProcessTown()
+        {
+            Console.WriteLine("마을에 입장했습니다");
+            Console.WriteLine($"플레이어의HP{player.GetHp()} 공격력 {player.GetAttack()}");
+
+            Console.WriteLine("[1]필드로 나간다.");
+            Console.WriteLine("[2]로비로 돌아간다.");
+
+            string 
+
+        }
+        private void ProcessField() { }
+
+        private void ProcessFight() { }
 
     }
 }

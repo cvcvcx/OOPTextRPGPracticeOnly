@@ -67,12 +67,31 @@ namespace OOP5
             Console.WriteLine("[1]필드로 나간다.");
             Console.WriteLine("[2]로비로 돌아간다.");
 
-            string 
+            string input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                    mode = GameMode.Field;
+                    break;
+                case "2":
+                    mode = GameMode.Lobby;
+                    break;
+            }
 
         }
-        private void ProcessField() { }
+        private void ProcessField()
+        {
+            Console.WriteLine("필드에 입장했습니다.");
+
+
+
+        }
 
         private void ProcessFight() { }
 
+        private void CreateRandomMonster()
+        {
+
+        }
     }
 }

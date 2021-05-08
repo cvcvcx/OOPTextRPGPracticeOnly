@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
+    enum CreatureType
+    {
+        None,
+        Player,
+        Monster
+    }
     class Creature
     {
+        //인자가 들어간 빈 생성자를 생성함으로써 아무인자도 없는 생성자를 만들지 못하게 만듬
+        protected Creature(CreatureType type) { }
         protected int _hp = 0;
         protected int _attack = 0;
         

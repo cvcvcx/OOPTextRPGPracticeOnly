@@ -15,9 +15,11 @@ namespace ConsoleApp1
     }
     class Game
     {
+        Random rand = new Random();
         //선언할 때, 클래스변수로 선언하지 않으면 다른 함수에서 사용못함
         GameMode mode = GameMode.Lobby;
         Player player = null;
+        Monster monster = null;
         public void Process()
         {
             
@@ -93,6 +95,82 @@ namespace ConsoleApp1
         private void ProcessField()
         {
             Console.WriteLine("필드에 입장했습니다");
+            CreateRandomMonster();
+            Console.WriteLine("[1]싸운다");
+            Console.WriteLine("[2]일정 확률로 도망친다");
+            string input = Console.ReadLine();
+            if (input == "1" || input == "2")
+            {
+                switch (input)
+                {
+                    case "1":
+                        ProcessFight();
+                        break;
+                    case "2":
+                        int randValue = rand.Next(0, 101);
+                        if (randValue < 33)
+                        {
+                            Console.WriteLine("도망에 성공했습니다!");
+                            mode = GameMode.Town;
+                        }
+                        else
+                        {
+                            Console.WriteLine("실패! 전투 시작!");
+                            ProcessFight();
+                        }
+                        break;
+
+                }
+                
+            }
+            else
+            {
+                Console.WriteLine("정확한 수를 입력해주세요");
+            }
+           
+        }
+        private void ProcessFight()
+        {
+            while (true)
+            {
+                int damage = player.GetAttack();
+                monster.OnDamege(damage);
+                if (monster.IsDead())
+                {
+                    Console.WriteLine("승리했습니다");
+                    Console.WriteLine($"남은 HP{player.GetHp()}");
+                    mode = GameMode.Field;
+                    return;
+                }
+                damage = monster.GetAttack();
+                player.OnDamege(damage);
+                if (player.IsDead())
+                {
+                    Console.WriteLine("패배했습니다.");
+                    mode = GameMode.Lobby;
+                    return;
+                }
+            }
+            
+        }
+        private void CreateRandomMonster()
+        {
+            int randValue = rand.Next(1, 4);
+            switch (randValue)
+            {
+                case (int)MonsterType.Slime:
+                    monster = new Slime();
+                    Console.WriteLine("슬라임이 소환되었습니다!");
+                    break;
+                case (int)MonsterType.Orc:
+                    Console.WriteLine("오크가 소환되었습니다!");
+                    monster = new Orc();
+                    break;
+                case (int)MonsterType.Skeleton:
+                    Console.WriteLine("스켈레톤이 소환되었습니다!");
+                    monster = new Skeleton();
+                    break;
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace ConsoleApp1
             Game game = new Game();
             while (true)
             {
-
+                game.Process();
             }
         }
     }

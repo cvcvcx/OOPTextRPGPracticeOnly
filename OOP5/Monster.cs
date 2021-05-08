@@ -20,7 +20,7 @@ namespace OOP5
         {
             _type = type;
         }
-        public MonsterType GetMonsterType(Monster monster) { return monster._type; }
+        public MonsterType GetMonsterType() { return _type; }
     }
     class Zombie : Monster
     {

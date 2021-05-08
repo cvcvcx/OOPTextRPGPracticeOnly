@@ -15,6 +15,7 @@ namespace OOP5
     }
     class Game
     {
+        Random rand = new Random();
         GameMode mode = GameMode.Lobby;
         Player player = null;
         Monster monster = null;
@@ -82,16 +83,101 @@ namespace OOP5
         private void ProcessField()
         {
             Console.WriteLine("필드에 입장했습니다.");
-
+            CreateRandomMonster();
+            string input = "";
+            SelectOption(input);
+            switch (input)
+            {
+                case "1":
+                    ProcessFight();
+                    break;
+                case "2":
+                    TryEscape();
+                    break;
+                case "3":
+                    ProcessShowMonsterInfo(monster);
+                    input = "";
+                    SelectOption(input);
+                    break;
+            }
 
 
         }
+        private void SelectOption(string input)
+        {
+            Console.WriteLine("[1]싸운다");
+            Console.WriteLine("[2]일정확률로 마을로 돌아간다");
+            Console.WriteLine("[3]몬스터 정보");
 
-        private void ProcessFight() { }
+            input = "";
+            while (input != "1" && input != "2" && input != "3")
+            {
+                input = Console.ReadLine();
+                break;
+            }
+            
+        }
+
+        private void ProcessFight() {
+            while (true)
+            {
+                int damage = player.GetAttack();
+                monster.OnDamage(damage);
+                if (monster.IsDead())
+                {
+                    Console.WriteLine("승리했습니다");
+                    mode = GameMode.Field;
+                    break;
+                }
+                damage = monster.GetAttack();
+                player.OnDamage(damage);
+                if (player.IsDead())
+                {
+                    Console.WriteLine("패배했습니다.");
+                    mode = GameMode.Lobby;
+                    break;
+                }
+            }
+        }
+        private void TryEscape() 
+        {
+            int randValue = rand.Next(0, 101);
+                
+           if(randValue<33){
+                Console.WriteLine("도망성공!");
+                mode = GameMode.Town;
+            }
+            else
+            {
+                Console.WriteLine("도망실패.."); 
+                ProcessFight();
+            }
+        }
+        private void ProcessShowMonsterInfo(Monster monster)
+        {
+            Console.WriteLine($"몬스터 종류{monster.GetMonsterType()}");
+            Console.WriteLine($"몬스터 HP{monster.GetHp()}");
+            Console.WriteLine($"몬스터 공격력{monster.GetAttack()}");
+        }
 
         private void CreateRandomMonster()
         {
-
+            int randValue = rand.Next(1, 4);
+            switch (randValue)
+            {
+                case (int)MonsterType.Zombie:
+                    monster = new Zombie();
+                    Console.WriteLine("좀비가 나타났습니다!");
+                    break;
+                case (int)MonsterType.Skeleton:
+                    monster = new Skeleton();
+                    Console.WriteLine("스켈레톤이 나타났습니다!");
+                    break;
+                case (int)MonsterType.Creeper:
+                    monster = new Creeper();
+                    Console.WriteLine("크리퍼가 나타났습니다!");
+                    break;
+            }
         }
     }
 }

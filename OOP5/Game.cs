@@ -85,7 +85,7 @@ namespace OOP5
             Console.WriteLine("필드에 입장했습니다.");
             CreateRandomMonster();
             string input = "";
-            SelectOption(input);
+            SelectOption(ref input);
             switch (input)
             {
                 case "1":
@@ -96,25 +96,25 @@ namespace OOP5
                     break;
                 case "3":
                     ProcessShowMonsterInfo(monster);
-                    input = "";
-                    SelectOption(input);
+                    ProcessFight();
                     break;
             }
 
 
         }
-        private void SelectOption(string input)
+        private string SelectOption(ref string input)
         {
+            
             Console.WriteLine("[1]싸운다");
             Console.WriteLine("[2]일정확률로 마을로 돌아간다");
             Console.WriteLine("[3]몬스터 정보");
 
-            input = "";
             while (input != "1" && input != "2" && input != "3")
             {
                 input = Console.ReadLine();
                 break;
             }
+            return input;
             
         }
 

@@ -136,10 +136,12 @@ namespace OOP6
             int randValue = rand.Next(0, 101);
             if(randValue < 33)
             {
+                Console.WriteLine("도망성공!");
                 mode = GameMode.Town;  
             }
             else
             {
+                Console.WriteLine("도망실패!");
                 Fight();
             }
             

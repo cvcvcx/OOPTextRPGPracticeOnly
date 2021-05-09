@@ -27,4 +27,19 @@ namespace OOP6
             SetInfo(100, 10);
         }
     }
+    
+    class Archer : Player
+    {
+        public Archer() : base(PlayerType.Archer)
+        {
+            SetInfo(75, 12);
+        }
+    }
+    class Mage : Player
+    {
+        public Mage() : base(PlayerType.Mage)
+        {
+            SetInfo(50, 15);
+        }
+    }
 }

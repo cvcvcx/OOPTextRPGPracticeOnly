@@ -10,7 +10,9 @@ namespace OOP6
         None,
         Lobby,
         Town,
-        Field
+        Field,
+        Fight
+        
     }
 
     class Game
@@ -32,6 +34,9 @@ namespace OOP6
                     break;
                 case GameMode.Field:
                     ProcessField();
+                    break;
+                case GameMode.Fight:
+                    ProcessFight();
                     break;
             }
         }
@@ -83,13 +88,79 @@ namespace OOP6
 
             Console.WriteLine("필드에 입장했습니다.");
             CreateRandomMonster();
+            mode = GameMode.Fight;
+            
+            
+
+        }
+        private void ProcessFight()
+        {
+            Console.WriteLine("[1] 싸운다.");
+            Console.WriteLine("[2] 일정 확률로 도망친다..");
+            Console.WriteLine("[3] 몬스터 정보 확인.");
+            string input = input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                    Fight();
+                    break;
+                case "2":
+                    TryEscape();
+                    break;
+                case "3":
+                    Console.WriteLine($"몬스터의 타입   : {monster.GetMonsterType()}");
+                    Console.WriteLine($"몬스터의 체력   : {monster.GetHp()}");
+                    Console.WriteLine($"몬스터의 공격력 : {monster.GetAttack()}");
+                    break;
+            }
+        }
+        private void Fight()
+        {
+            int damage = player.GetHp();
+            monster.OnDamage(damage);
+            if (monster.IsDead())
+            {
+                Console.WriteLine("승리했습니다!");
+                mode = GameMode.Field;
+            }
+            damage = monster.GetAttack();
+            player.OnDamage(damage);
+            if (player.IsDead())
+            {
+                Console.WriteLine("패배했습니다.");
+                mode = GameMode.Lobby;
+            }
+        }
+        private void TryEscape()
+        {
+            int randValue = rand.Next(0, 101);
+            if(randValue < 33)
+            {
+                mode = GameMode.Town;  
+            }
+            else
+            {
+                Fight();
+            }
+            
         }
         private void CreateRandomMonster()
         {
             int randValue = rand.Next(1, 4);
             switch (randValue)
             {
-                case 
+                case (int)MonsterType.Slime:
+                    monster = new Slime();
+                    Console.WriteLine("슬라임 등장!");
+                    break;
+                case (int)MonsterType.Orc:
+                    monster = new Orc();
+                    Console.WriteLine("오크 등장!");
+                    break;
+                case (int)MonsterType.Skeleton:
+                    monster = new Skeleton();
+                    Console.WriteLine("스켈레톤 등장!");
+                    break;
             }
 
         }

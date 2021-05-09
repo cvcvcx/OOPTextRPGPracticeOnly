@@ -6,26 +6,48 @@ using System.Threading.Tasks;
 
 namespace OOP6
 {
-    enum MonsterType 
+    enum MonsterType
     {
         None,
         Slime,
         Orc,
         Skeleton
     }
-    class Monster:Creature
+    class Monster : Creature
     {
         MonsterType _type = MonsterType.None;
-        protected Monster(MonsterType type ) :base(CreatureType.Monster){ _type = type; }
+        protected Monster(MonsterType type) : base(CreatureType.Monster) { _type = type; }
+
+        public MonsterType GetMonsterType() { return _type; }
     }
-    class Slime:Monster
+    class Slime : Monster
     {
-        
+
         public Slime() : base(MonsterType.Slime)
         {
+            
             SetInfo(20, 2);
         }
-            
-        }
+
     }
+    class Orc : Monster
+    {
+
+        public Orc() : base(MonsterType.Orc)
+        {
+            SetInfo(50, 5);
+        }
+
+    }
+    class Skeleton : Monster
+    {
+
+        public Skeleton() : base(MonsterType.Skeleton)
+        {
+            SetInfo(30, 3);
+        }
+
+    }
+
 }
+

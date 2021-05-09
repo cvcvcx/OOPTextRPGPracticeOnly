@@ -17,7 +17,7 @@ namespace OOP6
         protected int _hp = 0;
         protected int _attack = 0;
 
-        protected CreatureType _type = CreatureType.None;
+        CreatureType _type = CreatureType.None;
         protected Creature(CreatureType type) { _type = type; }
         public int GetHp() { return _hp; }
         public int GetAttack() { return _attack; }

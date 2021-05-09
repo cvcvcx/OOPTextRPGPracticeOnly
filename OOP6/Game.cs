@@ -15,6 +15,7 @@ namespace OOP6
 
     class Game
     {
+        Random rand = new Random();
         Player player = null;
         Monster monster = null;
         protected GameMode mode = GameMode.Lobby;
@@ -45,10 +46,16 @@ namespace OOP6
             switch (input)
             {
                 case "1":
+                    player = new Knight();
+                    mode = GameMode.Town;
                     break;
                 case "2":
+                    player = new Archer();
+                    mode = GameMode.Town;
                     break;
                 case "3":
+                    player = new Mage();
+                    mode = GameMode.Town;
                     break;
             }
             
@@ -56,12 +63,35 @@ namespace OOP6
         private void ProcessTown()
         {
             Console.WriteLine("마을에 입장했습니다");
-        
+            Console.WriteLine("[1]필드로 가기");
+            Console.WriteLine("[2]로비로 돌아가기");
+            string input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                    mode = GameMode.Field;
+                    break;
+                case "2":
+                    mode = GameMode.Lobby;
+                    break;
+               
+                    
+            }
         }
         private void ProcessField()
         {
 
             Console.WriteLine("필드에 입장했습니다.");
+            CreateRandomMonster();
+        }
+        private void CreateRandomMonster()
+        {
+            int randValue = rand.Next(1, 4);
+            switch (randValue)
+            {
+                case 
+            }
+
         }
     }
    

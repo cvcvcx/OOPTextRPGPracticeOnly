@@ -19,7 +19,7 @@ namespace OOP7
 
         protected Monster(MonsterType type) : base(CreatureType.Monster){ _type = type; }
 
-        public MonsterType GetMonsterType(Monster monster) { return _type; }
+        public MonsterType GetMonsterType() { return _type; }
     }
     class Slime : Monster
     {

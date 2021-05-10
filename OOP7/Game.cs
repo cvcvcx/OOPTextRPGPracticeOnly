@@ -18,6 +18,7 @@ namespace OOP7
 
     class Game
     {
+        bool isFightEnd = true;
         GameMode mode = GameMode.Lobby;
         Player player = null;
         Monster monster = null;
@@ -96,13 +97,87 @@ namespace OOP7
         }
         void ProcessField()
         {
-            Console.WriteLine("필드에 입장했습니다.");
-            CreateRandomMonster();
-            mode = GameMode.Fight;
+            if (isFightEnd)
+            {
+                isFightEnd = false;
+                Console.WriteLine("필드에 입장했습니다.");
+                CreateRandomMonster();
+                mode = GameMode.Fight;
+            }
         }
         void ProcessFight()
         {
+            Console.WriteLine("[1]싸운다");
+            Console.WriteLine("[2]일정확률로 도망친다");
+            Console.WriteLine("[3]몬스터 정보 확인");
+            string input = Console.ReadLine();
+            switch (input)
+            {
 
+                case "1":
+                    Fight();
+                    break;
+                case "2":
+                    TryEscape();
+                    break;
+                case "3":
+                    Console.WriteLine($"몬스터의 종류 : {monster.GetMonsterType()}");
+                    Console.WriteLine($"몬스터의 체력 : {monster.GetHP()}");
+                    Console.WriteLine($"몬스의의 공격력 : {monster.GetAttack()}");
+                    break;
+            }
+
+        }
+        void Fight()
+        {
+            while (true) {
+                int damage = player.GetAttack();
+                monster.OnDamage(damage);
+                if (monster.IsDead())
+                {
+                    Console.WriteLine("플레이어가 승리하였습니다!");
+                    Console.WriteLine($"남은 HP{player.GetHP()}");
+                    Console.WriteLine("[1]마을로 돌아간다.");
+                    Console.WriteLine("[2]필드에 머무른다.");
+                    string input = Console.ReadLine();
+                    switch (input)
+                    {
+
+                        case "1":
+                            mode = GameMode.Town;
+                            break;
+                        case "2":
+                            isFightEnd = true;
+                            mode = GameMode.Field;
+                            break;
+                       
+                    }
+                    //While Fight에서 계속 돌고있었음. break를 하나 더 추가하는 것으로 코드 흐름을 다시 돌려놓음
+                    break;
+                }
+                damage = monster.GetAttack();
+                player.OnDamage(damage);
+                if (player.IsDead())
+                {
+                    Console.WriteLine("패배하였습니다.");
+                    mode = GameMode.Lobby;
+                    break;
+                }
+             }
+        }
+        void TryEscape()
+        {
+            int randValue = rand.Next(0, 101);
+            if (randValue<33) 
+            {
+                Console.WriteLine("도망성공!");
+                mode = GameMode.Town;
+            }
+            else
+            {
+                Console.WriteLine("도망실패!");
+                Fight();
+            }                        
         }
         void CreateRandomMonster()
         {

@@ -13,7 +13,7 @@ namespace OOP7
             Game game = new Game();
             while (true)
             {
-
+                game.Process();
             }
         }
     }

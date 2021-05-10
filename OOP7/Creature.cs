@@ -18,7 +18,7 @@ namespace OOP7
         protected int _hp = 0;
         protected int _attack = 0;
         protected Creature(CreatureType type) { _type = type; }
-
+                
         public int GetHP() { return _hp; }
         public int GetAttack() { return _attack; }
         public void OnDamage(int damage) { _hp -= damage; }

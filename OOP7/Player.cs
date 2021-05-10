@@ -16,6 +16,7 @@ namespace OOP7
     class Player : Creature
     {
         PlayerType _type = PlayerType.None;
+        public PlayerType GetPlayerType() { return _type; }
         protected Player(PlayerType type) : base(CreatureType.Player) { _type = type; }
     }
     class Knight : Player   

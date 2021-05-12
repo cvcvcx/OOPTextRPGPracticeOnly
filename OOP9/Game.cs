@@ -132,6 +132,7 @@ namespace OOP9
                             mode = GameMode.Town;
                             break;
                         case "2":
+                            mode = GameMode.Field;
                             break;
                     }
                     break;
@@ -165,12 +166,15 @@ namespace OOP9
             {
                 case (int)MonsterType.Slime :
                     monster = new Slime();
+                    Console.WriteLine("슬라임 등장!");
                    break;
                 case (int)MonsterType.Orc:
                     monster = new Orc();
+                    Console.WriteLine("오크 등장!");
                     break;
                 case (int)MonsterType.Skeleton:
                     monster = new Skeleton();
+                    Console.WriteLine("스켈레톤 등장!");
                     break;
             }
         }

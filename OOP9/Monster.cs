@@ -22,7 +22,7 @@ namespace OOP9
     }
     class Slime : Monster
     {
-        Slime() : base(MonsterType.Slime)
+        public Slime() : base(MonsterType.Slime)
         {
             SetInfo(15, 2);
 
@@ -30,7 +30,7 @@ namespace OOP9
     }
     class Orc : Monster
     {
-        Orc() : base(MonsterType.Orc)
+        public Orc() : base(MonsterType.Orc)
         {
 
             SetInfo(40, 4);
@@ -38,7 +38,7 @@ namespace OOP9
     }
     class Skeleton : Monster
     {
-        Skeleton() : base(MonsterType.Skeleton)
+        public Skeleton() : base(MonsterType.Skeleton)
         {
             SetInfo(30, 3);
         }
